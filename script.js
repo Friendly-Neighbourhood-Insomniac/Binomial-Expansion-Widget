@@ -60,53 +60,55 @@ function calculateBinomialTerms(a, b, n, x = null) {
         const aPower = n - k;
         const bPower = k;
         
-        // For symbolic representation
         // Create LaTeX expression for the term
         let latexExpression = '';
         
-        // Add coefficient if not 1
-        if (coefficient !== 1) {
+        // Handle coefficient
+        if (coefficient !== 1 || (aPower === 0 && bPower === 0)) {
             latexExpression += coefficient;
         }
         
-        // Add 'a' term
+        // Handle 'a' term
         if (aPower > 0) {
-            if (latexExpression && coefficient !== 1) latexExpression += ' \\cdot ';
-            if (a !== 1) latexExpression += a;
-            if (aPower === 1 && a === 1) {
+            if (latexExpression && coefficient !== 1) {
+                latexExpression += ' \\cdot ';
+            }
+            
+            if (a === 1) {
                 latexExpression += 'a';
-            } else if (aPower === 1 && a !== 1) {
-                latexExpression += 'a';
-            } else if (aPower > 1) {
-                latexExpression += (a === 1 ? 'a' : 'a') + `^{${aPower}}`;
+            } else if (a === -1) {
+                latexExpression += '(-a)';
+            } else {
+                latexExpression += `${a}a`;
+            }
+            
+            if (aPower > 1) {
+                latexExpression += `^{${aPower}}`;
             }
         }
         
-        // Add 'b' term
+        // Handle 'b' term
         if (bPower > 0) {
-            if (latexExpression) latexExpression += ' \\cdot ';
-            if (b !== 1) latexExpression += b;
-            if (bPower === 1 && b === 1) {
+            if (latexExpression) {
+                latexExpression += ' \\cdot ';
+            }
+            
+            if (b === 1) {
                 latexExpression += 'b';
-            } else if (bPower === 1 && b !== 1) {
-                latexExpression += 'b';
-            } else if (bPower > 1) {
-                latexExpression += (b === 1 ? 'b' : 'b') + `^{${bPower}}`;
+            } else if (b === -1) {
+                latexExpression += '(-b)';
+            } else {
+                latexExpression += `${b}b`;
+            }
+            
+            if (bPower > 1) {
+                latexExpression += `^{${bPower}}`;
             }
         }
         
-        if (latexExpression === '') latexExpression = '1';
-        
-        // Simple expression for display
-        let simpleExpression = '';
-        if (coefficient !== 1) simpleExpression += coefficient;
-        if (aPower > 0) {
-            simpleExpression += (simpleExpression && coefficient !== 1 ? '·' : '') + (a !== 1 ? a : '') + (aPower > 1 ? `^${aPower}` : (aPower === 1 && a === 1 ? 'a' : ''));
+        if (latexExpression === '') {
+            latexExpression = '1';
         }
-        if (bPower > 0) {
-            simpleExpression += (simpleExpression ? '·' : '') + (b !== 1 ? b : '') + (bPower > 1 ? `^${bPower}` : (bPower === 1 && b === 1 ? 'b' : ''));
-        }
-        if (simpleExpression === '') simpleExpression = '1';
         
         // For numerical evaluation
         let numericalValue = coefficient;
@@ -121,7 +123,6 @@ function calculateBinomialTerms(a, b, n, x = null) {
             coefficient,
             aPower,
             bPower,
-            expression: simpleExpression,
             latexExpression: latexExpression,
             value: numericalValue
         });
@@ -137,6 +138,7 @@ function renderMath(expression, element) {
             displayMode: true
         });
     } catch (error) {
+        console.error('KaTeX rendering error:', error);
         element.textContent = expression;
     }
 }
@@ -269,7 +271,7 @@ function updateTermsBreakdown(terms) {
         
         // Create a container for the LaTeX expression
         const latexContainer = document.createElement('span');
-        latexContainer.style.marginLeft = '10px';
+        latexContainer.className = 'term-latex';
         renderMath(term.latexExpression, latexContainer);
         
         expressionDiv.innerHTML = `Term ${index + 1}: `;
@@ -304,12 +306,30 @@ function updateVisualization() {
     const terms = calculateBinomialTerms(a, b, n, x);
     
     // Update current expression
-    let aDisplay = a === 1 ? '' : (a === -1 ? '-' : a);
-    let bDisplay = b === 1 ? '' : (b === -1 ? '-' : b);
-    if (b >= 0 && b !== 1) bDisplay = '+' + bDisplay;
-    else if (b === 1) bDisplay = '+';
+    let currentExpr = '(';
+    if (a === 1) {
+        currentExpr += 'a';
+    } else if (a === -1) {
+        currentExpr += '-a';
+    } else {
+        currentExpr += `${a}a`;
+    }
     
-    const currentExpr = `(${aDisplay}a ${bDisplay}b)^{${n}}`;
+    if (b >= 0) {
+        if (b === 1) {
+            currentExpr += ' + b';
+        } else {
+            currentExpr += ` + ${b}b`;
+        }
+    } else {
+        if (b === -1) {
+            currentExpr += ' - b';
+        } else {
+            currentExpr += ` - ${Math.abs(b)}b`;
+        }
+    }
+    
+    currentExpr += `)^{${n}}`;
     renderMath(currentExpr, document.getElementById('currentExpression'));
     
     // Update expanded form
@@ -317,9 +337,14 @@ function updateVisualization() {
         if (index === 0) {
             return term.latexExpression;
         } else {
-            return (term.value >= 0 ? '+' : '') + term.latexExpression;
+            // Check if the term value is negative
+            if (term.value < 0) {
+                return ` - ${term.latexExpression.replace(/^-/, '')}`;
+            } else {
+                return ` + ${term.latexExpression}`;
+            }
         }
-    }).join(' ');
+    }).join('');
     
     renderMath(expandedLatex, document.getElementById('expandedForm'));
     
