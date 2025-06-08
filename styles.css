@@ -945,6 +945,121 @@ body {
     color: var(--primary-purple);
 }
 
+/* Enhanced Tutorial Styles */
+.tutorial-features ul,
+.tutorial-controls,
+.tutorial-2d,
+.tutorial-3d,
+.tutorial-steps,
+.tutorial-animations,
+.tutorial-accessibility,
+.tutorial-advanced {
+    margin: 15px 0;
+    padding: 15px;
+    background: rgba(74, 33, 129, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid var(--secondary-magenta);
+}
+
+.tutorial-features ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.tutorial-features li {
+    padding: 5px 0;
+    font-weight: 500;
+}
+
+.tutorial-controls p,
+.tutorial-2d p,
+.tutorial-3d p,
+.tutorial-steps p,
+.tutorial-animations p,
+.tutorial-accessibility p,
+.tutorial-advanced p {
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+.tutorial-controls strong,
+.tutorial-2d strong,
+.tutorial-3d strong,
+.tutorial-steps strong,
+.tutorial-animations strong,
+.tutorial-accessibility strong,
+.tutorial-advanced strong {
+    color: var(--primary-purple);
+}
+
+/* Tutorial highlight animation */
+@keyframes tutorialPulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.02);
+    }
+}
+
+.tutorial-highlight {
+    animation: tutorialPulse 2s infinite;
+}
+
+/* Enhanced hint styles */
+.tutorial-hint {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.4;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Achievement notification styles */
+.achievement-notification {
+    font-family: 'Inter', sans-serif;
+}
+
+.achievement-icon {
+    font-size: 24px;
+    animation: bounce 1s ease-out;
+}
+
+.achievement-title {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.achievement-description {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
 /* Particle Canvas */
 .particle-canvas {
     position: fixed;
