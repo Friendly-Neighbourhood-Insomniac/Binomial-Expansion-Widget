@@ -164,6 +164,10 @@ body {
     margin-bottom: 15px;
     color: #ffffff;
     font-weight: 600;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .expanded-form {
@@ -171,6 +175,10 @@ body {
     margin-bottom: 15px;
     color: #f0f0f0;
     line-height: 1.6;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .numerical-result {
@@ -181,6 +189,10 @@ body {
     background: rgba(78, 205, 196, 0.1);
     border-radius: 10px;
     display: inline-block;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .visual-container {
@@ -321,6 +333,18 @@ body {
     margin: 20px 0;
     font-size: 1.3rem;
     color: #ffffff;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.term-expression {
+    font-size: 1.1rem;
+    color: #ffffff;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
 }
 
 @media (max-width: 1024px) {

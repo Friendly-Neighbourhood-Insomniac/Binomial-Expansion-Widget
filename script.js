@@ -61,15 +61,52 @@ function calculateBinomialTerms(a, b, n, x = null) {
         const bPower = k;
         
         // For symbolic representation
-        let termExpression = '';
-        if (coefficient !== 1) termExpression += coefficient;
+        // Create LaTeX expression for the term
+        let latexExpression = '';
+        
+        // Add coefficient if not 1
+        if (coefficient !== 1) {
+            latexExpression += coefficient;
+        }
+        
+        // Add 'a' term
         if (aPower > 0) {
-            termExpression += (termExpression && coefficient !== 1 ? '·' : '') + (a !== 1 ? a : '') + (aPower > 1 ? `^${aPower}` : (aPower === 1 && a === 1 ? 'a' : ''));
+            if (latexExpression && coefficient !== 1) latexExpression += ' \\cdot ';
+            if (a !== 1) latexExpression += a;
+            if (aPower === 1 && a === 1) {
+                latexExpression += 'a';
+            } else if (aPower === 1 && a !== 1) {
+                latexExpression += 'a';
+            } else if (aPower > 1) {
+                latexExpression += (a === 1 ? 'a' : 'a') + `^{${aPower}}`;
+            }
+        }
+        
+        // Add 'b' term
+        if (bPower > 0) {
+            if (latexExpression) latexExpression += ' \\cdot ';
+            if (b !== 1) latexExpression += b;
+            if (bPower === 1 && b === 1) {
+                latexExpression += 'b';
+            } else if (bPower === 1 && b !== 1) {
+                latexExpression += 'b';
+            } else if (bPower > 1) {
+                latexExpression += (b === 1 ? 'b' : 'b') + `^{${bPower}}`;
+            }
+        }
+        
+        if (latexExpression === '') latexExpression = '1';
+        
+        // Simple expression for display
+        let simpleExpression = '';
+        if (coefficient !== 1) simpleExpression += coefficient;
+        if (aPower > 0) {
+            simpleExpression += (simpleExpression && coefficient !== 1 ? '·' : '') + (a !== 1 ? a : '') + (aPower > 1 ? `^${aPower}` : (aPower === 1 && a === 1 ? 'a' : ''));
         }
         if (bPower > 0) {
-            termExpression += (termExpression ? '·' : '') + (b !== 1 ? b : '') + (bPower > 1 ? `^${bPower}` : (bPower === 1 && b === 1 ? 'b' : ''));
+            simpleExpression += (simpleExpression ? '·' : '') + (b !== 1 ? b : '') + (bPower > 1 ? `^${bPower}` : (bPower === 1 && b === 1 ? 'b' : ''));
         }
-        if (termExpression === '') termExpression = '1';
+        if (simpleExpression === '') simpleExpression = '1';
         
         // For numerical evaluation
         let numericalValue = coefficient;
@@ -84,7 +121,8 @@ function calculateBinomialTerms(a, b, n, x = null) {
             coefficient,
             aPower,
             bPower,
-            expression: termExpression,
+            expression: simpleExpression,
+            latexExpression: latexExpression,
             value: numericalValue
         });
     }
@@ -228,7 +266,14 @@ function updateTermsBreakdown(terms) {
         
         const expressionDiv = document.createElement('div');
         expressionDiv.className = 'term-expression';
-        expressionDiv.textContent = `Term ${index + 1}: ${term.expression}`;
+        
+        // Create a container for the LaTeX expression
+        const latexContainer = document.createElement('span');
+        latexContainer.style.marginLeft = '10px';
+        renderMath(term.latexExpression, latexContainer);
+        
+        expressionDiv.innerHTML = `Term ${index + 1}: `;
+        expressionDiv.appendChild(latexContainer);
         
         const valueDiv = document.createElement('div');
         valueDiv.className = 'term-value';
@@ -259,20 +304,28 @@ function updateVisualization() {
     const terms = calculateBinomialTerms(a, b, n, x);
     
     // Update current expression
-    const currentExpr = `(${a !== 1 ? a : ''}a + ${b !== 1 ? b : ''}b)^{${n}}`;
+    let aDisplay = a === 1 ? '' : (a === -1 ? '-' : a);
+    let bDisplay = b === 1 ? '' : (b === -1 ? '-' : b);
+    if (b >= 0 && b !== 1) bDisplay = '+' + bDisplay;
+    else if (b === 1) bDisplay = '+';
+    
+    const currentExpr = `(${aDisplay}a ${bDisplay}b)^{${n}}`;
     renderMath(currentExpr, document.getElementById('currentExpression'));
     
     // Update expanded form
-    const expandedTerms = terms.map(term => {
-        const sign = term.value >= 0 ? '+' : '';
-        return sign + term.expression;
-    }).join(' ').replace(/^\+/, '');
+    const expandedLatex = terms.map((term, index) => {
+        if (index === 0) {
+            return term.latexExpression;
+        } else {
+            return (term.value >= 0 ? '+' : '') + term.latexExpression;
+        }
+    }).join(' ');
     
-    document.getElementById('expandedForm').textContent = expandedTerms;
+    renderMath(expandedLatex, document.getElementById('expandedForm'));
     
     // Update numerical result
     const totalValue = terms.reduce((sum, term) => sum + term.value, 0);
-    document.getElementById('numericalResult').textContent = `= ${totalValue.toFixed(3)}`;
+    renderMath(`= ${totalValue.toFixed(3)}`, document.getElementById('numericalResult'));
     
     // Update general formula
     renderMath('(a+b)^n = \\sum_{k=0}^{n} \\binom{n}{k} a^{n-k} b^k', document.getElementById('generalFormula'));
