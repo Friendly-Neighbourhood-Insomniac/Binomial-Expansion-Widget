@@ -24,7 +24,8 @@ body {
     background: #F5F5F5;
     border-radius: 20px;
     margin-bottom: 30px;
-    border: 2px solid #A742B2;
+    border: 2px solid #4A2181;
+    box-shadow: 0 8px 32px rgba(74, 33, 129, 0.15);
 }
 
 .title {
@@ -57,11 +58,11 @@ body {
     background: #F5F5F5;
     border-radius: 20px;
     padding: 30px;
-    border: 2px solid #A742B2;
+    border: 2px solid #4A2181;
     height: fit-content;
     position: sticky;
     top: 20px;
-    box-shadow: 0 8px 32px rgba(74, 33, 129, 0.1);
+    box-shadow: 0 8px 32px rgba(74, 33, 129, 0.12);
 }
 
 .controls-group h3 {
@@ -109,10 +110,20 @@ body {
     box-shadow: 0 0 15px rgba(214, 30, 255, 0.8);
 }
 
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #D61EFF, #00BFFF);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 10px rgba(214, 30, 255, 0.5);
+}
+
 .value-display {
     display: inline-block;
     background: #D61EFF;
-    color: white;
+    color: #FFFFFF;
     padding: 5px 12px;
     border-radius: 15px;
     font-weight: 600;
@@ -135,7 +146,7 @@ body {
 
 .checkbox-group label:hover {
     transform: translateX(5px);
-    color: #4A2181;
+    color: #00BFFF;
 }
 
 .checkbox-group input[type="checkbox"] {
@@ -148,17 +159,18 @@ body {
     background: #F5F5F5;
     border-radius: 20px;
     padding: 30px;
-    border: 2px solid #A742B2;
-    box-shadow: 0 8px 32px rgba(74, 33, 129, 0.1);
+    border: 2px solid #4A2181;
+    box-shadow: 0 8px 32px rgba(74, 33, 129, 0.12);
 }
 
 .expression-display {
     text-align: center;
     margin-bottom: 30px;
     padding: 20px;
-    background: white;
+    background: #FFFFFF;
     border-radius: 15px;
-    border: 1px solid #A742B2;
+    border: 1px solid #4A2181;
+    box-shadow: 0 4px 16px rgba(74, 33, 129, 0.08);
 }
 
 .current-expression {
@@ -190,7 +202,6 @@ body {
     padding: 10px;
     background: rgba(0, 191, 255, 0.1);
     border-radius: 10px;
-    display: inline-block;
     min-height: 40px;
     display: flex;
     align-items: center;
@@ -206,20 +217,22 @@ body {
 }
 
 .chart-section {
-    background: white;
+    background: #FFFFFF;
     border-radius: 15px;
     padding: 20px;
     height: 400px;
-    border: 1px solid #A742B2;
+    border: 1px solid #4A2181;
+    box-shadow: 0 4px 16px rgba(74, 33, 129, 0.08);
 }
 
 .pascal-section {
-    background: white;
+    background: #FFFFFF;
     border-radius: 15px;
     padding: 20px;
     height: 400px;
     overflow-y: auto;
-    border: 1px solid #A742B2;
+    border: 1px solid #4A2181;
+    box-shadow: 0 4px 16px rgba(74, 33, 129, 0.08);
 }
 
 .pascal-row {
@@ -263,29 +276,32 @@ body {
 
 .pascal-number.highlighted {
     background: #D61EFF;
-    color: white;
+    color: #FFFFFF;
     transform: scale(1.15);
     box-shadow: 0 0 15px rgba(214, 30, 255, 0.5);
     border-color: #D61EFF;
 }
 
 .terms-breakdown {
-    background: white;
+    background: #FFFFFF;
     border-radius: 15px;
     padding: 20px;
-    border: 1px solid #A742B2;
+    border: 1px solid #4A2181;
+    box-shadow: 0 4px 16px rgba(74, 33, 129, 0.08);
 }
 
 .terms-breakdown h4 {
     color: #4A2181;
     text-align: center;
     margin-bottom: 20px;
+    font-weight: 600;
 }
 
 .pascal-section h4 {
     color: #4A2181;
     text-align: center;
     margin-bottom: 20px;
+    font-weight: 600;
 }
 
 .term-item {
@@ -340,9 +356,9 @@ body {
     background: #F5F5F5;
     border-radius: 20px;
     padding: 30px;
-    border: 2px solid #A742B2;
+    border: 2px solid #4A2181;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(74, 33, 129, 0.1);
+    box-shadow: 0 8px 32px rgba(74, 33, 129, 0.12);
 }
 
 .info-panel h3 {
@@ -359,7 +375,7 @@ body {
 }
 
 .formula-display {
-    background: white;
+    background: #FFFFFF;
     padding: 20px;
     border-radius: 10px;
     margin: 20px 0;
@@ -369,19 +385,21 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #A742B2;
+    border: 1px solid #4A2181;
+    box-shadow: 0 4px 16px rgba(74, 33, 129, 0.08);
 }
 
-/* Button styles for future use */
+/* Primary CTA Button - Magenta with white text */
 .btn-primary {
     background: #D61EFF;
-    color: white;
+    color: #FFFFFF;
     border: none;
     padding: 12px 24px;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-size: 1rem;
 }
 
 .btn-primary:hover {
@@ -390,8 +408,9 @@ body {
     box-shadow: 0 4px 12px rgba(214, 30, 255, 0.3);
 }
 
+/* Secondary CTA Button - Outline with Accent Blue */
 .btn-secondary {
-    background: white;
+    background: #FFFFFF;
     color: #00BFFF;
     border: 2px solid #00BFFF;
     padding: 10px 22px;
@@ -399,13 +418,68 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-size: 1rem;
 }
 
 .btn-secondary:hover {
     background: #00BFFF;
-    color: white;
+    color: #FFFFFF;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 191, 255, 0.3);
+}
+
+/* Alternative Secondary Button - Purple text on white */
+.btn-secondary-alt {
+    background: #FFFFFF;
+    color: #4A2181;
+    border: 2px solid #4A2181;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.btn-secondary-alt:hover {
+    background: #4A2181;
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(74, 33, 129, 0.3);
+}
+
+/* Link styles using Accent Blue */
+a {
+    color: #00BFFF;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: #0099CC;
+    text-decoration: underline;
+}
+
+/* Tech motif highlights using Blue and Magenta */
+.tech-highlight-blue {
+    color: #00BFFF;
+    background: rgba(0, 191, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.tech-highlight-magenta {
+    color: #D61EFF;
+    background: rgba(214, 30, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* Subtle purple-blue strokes for line icons */
+.icon-stroke {
+    stroke: #A742B2;
+    stroke-width: 2px;
+    fill: none;
 }
 
 @media (max-width: 1024px) {
@@ -450,5 +524,11 @@ body {
     
     .expanded-form {
         font-size: 1rem;
+    }
+    
+    .control-panel,
+    .visualization-area,
+    .info-panel {
+        padding: 20px;
     }
 }
