@@ -146,7 +146,7 @@ function renderMath(expression, element) {
 // Update Pascal's Triangle display
 function updatePascalTriangle(n, highlightRow = -1) {
     const pascalContainer = document.getElementById('pascalTriangle');
-    pascalContainer.innerHTML = '<h4 style="text-align: center; margin-bottom: 20px; color: #ffffff;">Pascal\'s Triangle</h4>';
+    pascalContainer.innerHTML = '<h4 style="text-align: center; margin-bottom: 20px; color: #4A2181;">Pascal\'s Triangle</h4>';
     
     const triangle = generatePascalTriangle(Math.min(n + 2, 10)); // Limit display for performance
     
@@ -189,15 +189,15 @@ function updateChart(terms) {
             datasets: [{
                 label: 'Binomial Coefficients',
                 data: coefficients,
-                backgroundColor: 'rgba(255, 107, 107, 0.7)',
-                borderColor: 'rgba(255, 107, 107, 1)',
+                backgroundColor: 'rgba(214, 30, 255, 0.7)',
+                borderColor: 'rgba(214, 30, 255, 1)',
                 borderWidth: 2,
                 borderRadius: 8
             }, {
                 label: 'Term Values',
                 data: values,
-                backgroundColor: 'rgba(78, 205, 196, 0.7)',
-                borderColor: 'rgba(78, 205, 196, 1)',
+                backgroundColor: 'rgba(0, 191, 255, 0.7)',
+                borderColor: 'rgba(0, 191, 255, 1)',
                 borderWidth: 2,
                 borderRadius: 8,
                 type: 'line',
@@ -211,10 +211,10 @@ function updateChart(terms) {
                 y: {
                     beginAtZero: true,
                     grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
+                        color: 'rgba(74, 33, 129, 0.1)'
                     },
                     ticks: {
-                        color: '#ffffff'
+                        color: '#333333'
                     }
                 },
                 y1: {
@@ -225,30 +225,31 @@ function updateChart(terms) {
                         drawOnChartArea: false,
                     },
                     ticks: {
-                        color: '#ffffff'
+                        color: '#333333'
                     }
                 },
                 x: {
                     grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
+                        color: 'rgba(74, 33, 129, 0.1)'
                     },
                     ticks: {
-                        color: '#ffffff'
+                        color: '#333333'
                     }
                 }
             },
             plugins: {
                 legend: {
                     labels: {
-                        color: '#ffffff'
+                        color: '#333333'
                     }
                 },
                 title: {
                     display: true,
                     text: 'Binomial Coefficients and Term Values',
-                    color: '#ffffff',
+                    color: '#4A2181',
                     font: {
-                        size: 16
+                        size: 16,
+                        weight: 'bold'
                     }
                 }
             }
@@ -259,7 +260,7 @@ function updateChart(terms) {
 // Update terms breakdown
 function updateTermsBreakdown(terms) {
     const container = document.getElementById('termsBreakdown');
-    container.innerHTML = '<h4 style="text-align: center; margin-bottom: 20px; color: #ffffff;">Term Breakdown</h4>';
+    container.innerHTML = '<h4 style="text-align: center; margin-bottom: 20px; color: #4A2181;">Term Breakdown</h4>';
     
     terms.forEach((term, index) => {
         const termDiv = document.createElement('div');
